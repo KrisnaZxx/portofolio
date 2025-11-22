@@ -102,7 +102,7 @@ const animateOnScroll = new IntersectionObserver((entries) => {
 document.addEventListener('DOMContentLoaded', () => {
     const skillsSection = document.querySelector('.skills');
     const contactSection = document.querySelector('.contact');
-    
+
     if (skillsSection) animateOnScroll.observe(skillsSection);
     if (contactSection) animateOnScroll.observe(contactSection);
 });
@@ -114,9 +114,9 @@ skillFilterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         skillFilterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
+
         const filter = btn.getAttribute('data-filter');
-        
+
         skillCards.forEach((card, index) => {
             card.classList.remove('animate');
             if (filter === 'all' || card.getAttribute('data-category') === filter) {
@@ -138,9 +138,9 @@ contactFilterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         contactFilterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
+
         const filter = btn.getAttribute('data-filter');
-        
+
         contactCards.forEach((card, index) => {
             card.classList.remove('animate');
             if (filter === 'all' || card.getAttribute('data-category') === filter) {
@@ -254,7 +254,7 @@ if (brandTrack) {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - brandTrack.offsetLeft;
-        const walk = (x - startX) * 3; 
+        const walk = (x - startX) * 3;
         brandTrack.scrollLeft = scrollLeft - walk;
     });
 
@@ -359,5 +359,38 @@ window.addEventListener('load', () => {
 document.querySelector('.cta-button')?.addEventListener('click', () => {
     document.querySelector('#projects').scrollIntoView({
         behavior: 'smooth'
+    });
+});
+
+// Animate Certifications
+const certCards = document.querySelectorAll('.cert-card');
+const certObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+        }
+    });
+}, { threshold: 0.2 });
+
+certCards.forEach(card => certObserver.observe(card));
+// End Animate Certifications
+
+// Scroll to Top Button
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+window.onscroll = function () { scrollFunction() };
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        scrollTopBtn.style.display = "block";
+    } else {
+        scrollTopBtn.style.display = "none";
+    }
+}
+
+scrollTopBtn.addEventListener("click", function () {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
     });
 });
